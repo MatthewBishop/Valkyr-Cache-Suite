@@ -1111,7 +1111,11 @@ public class ItemDefinition implements AbstractDefinition, Cloneable {
 
 	@Override
 	public boolean save(FileStore cache) {
-		return cache.getIndexes()[Indices.ITEMS.getIndex()].putFile(Utils.getConfigArchive(id, 8), Utils.getConfigFile(id, 8), encode());
+		byte[] data = encode();
+		int archiveId = Utils.getConfigArchive(id, 8);
+		int fileId = Utils.getConfigFile(id, 8);
+		System.err.println("Packing id" + id + " " +archiveId+ " "+fileId+ " with length" +data.length);
+		return cache.getIndexes()[Indices.ITEMS.getIndex()].putFile(archiveId, fileId, data);
 	}
 	
 	@Override

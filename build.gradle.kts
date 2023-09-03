@@ -61,6 +61,12 @@ dependencies {
     implementation(group = "org.apache.ant", name = "ant", version = "1.9.4")
 
 //    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-compress
+    implementation("org.apache.commons:commons-compress:1.10")
+
+// https://mvnrepository.com/artifact/net.java.dev.jna/jna
+    implementation("net.java.dev.jna:jna:5.9.0")
 }
 
 //gradlePlugin {

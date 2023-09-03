@@ -4,6 +4,7 @@ import net.runelite.cache.ItemManager;
 import net.runelite.cache.definitions.ItemDefinition;
 import net.runelite.cache.fs.Store;
 import store.FileStore;
+import store.Indices;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,16 +31,21 @@ public class OSRSItemPacker {
 
         FileStore cache = new FileStore(CACHE_DIR);
 
+        //OSRS starts after 11685
 
         Collection<ItemDefinition> obj = im.getItems();
         //todo get the item cap of the 718 items and add 1 to start new items from
         int index = getItemDefinitionsSize(cache) + 1;
-
+        int counter = 0;
         for(ItemDefinition i : obj) {
+            counter++;
+            if(counter == 100)
+                break;
             store.codec.ItemDefinition def =  new store.codec.ItemDefinition(index++);
             copyValues(i, def);
             def.save(cache);
         }
+        cache.getIndexes()[Indices.ITEMS.getIndex()].rewriteTable();
     }
 
     private static void copyValues(ItemDefinition i, store.codec.ItemDefinition def) {
